@@ -23,4 +23,7 @@ build/
 # Backup files
 *~.nib
 
+# Android
 proj.android/bin/
+proj.android/libs/
+proj.android/obj/
