@@ -24,6 +24,7 @@ build/
 *~.nib
 
 # Android
+proj.android/assets/
 proj.android/bin/
 proj.android/libs/
 proj.android/obj/
