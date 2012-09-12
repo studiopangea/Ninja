@@ -12,7 +12,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes                   
 
-#LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocosdenshion_static cocos_extension_static
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocosdenshion_static cocos_extension_static box2d_static
             
 include $(BUILD_SHARED_LIBRARY)
