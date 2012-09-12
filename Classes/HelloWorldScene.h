@@ -1,22 +1,47 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+//
+//  HelloWorldScene.h
+//  PruebaBox2d
+//
+//  Created by Gonzalo Diaz Cruz on 12-09-12.
+//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//
+#ifndef __HELLO_WORLD_H__
+#define __HELLO_WORLD_H__
 
+// When you import this file, you import all the cocos2d classes
 #include "cocos2d.h"
+#include "Box2D/Box2D.h"
 
-class HelloWorld : public cocos2d::CCLayer
+class PhysicsSprite : public cocos2d::CCSprite
 {
 public:
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();  
-
-    // there's no 'id' in cpp, so we recommand to return the exactly class pointer
-    static cocos2d::CCScene* scene();
-    
-    // a selector callback
-    void menuCloseCallback(CCObject* pSender);
-
-    // implement the "static node()" method manually
-    LAYER_CREATE_FUNC(HelloWorld);
+    PhysicsSprite();
+    void setPhysicsBody(b2Body * body);
+    virtual bool isDirty(void);
+    virtual cocos2d::CCAffineTransform nodeToParentTransform(void);
+private:
+    b2Body* m_pBody;    // strong ref
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+class HelloWorld : public cocos2d::CCLayer {
+public:
+    ~HelloWorld();
+    HelloWorld();
+    
+    // returns a Scene that contains the HelloWorld as the only child
+    static cocos2d::CCScene* scene();
+    
+    void initPhysics();
+    // adds a new sprite at a given coordinate
+    void addNewSpriteAtPosition(cocos2d::CCPoint p);
+    
+    virtual void draw();
+    virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
+    void update(float dt);
+    
+private:
+    b2World* world;
+    cocos2d::CCTexture2D* m_pSpriteTexture; // weak ref
+};
+
+#endif // __HELLO_WORLD_H__
