@@ -27,9 +27,9 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.943910811" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.225889130" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/Volumes/Documentos/devel/android/android-ndk-mac/platforms/android-9/arch-arm/usr/include/"/>
-									<listOptionValue builtIn="false" value="/Volumes/Documentos/devel/lib/cpp/cocos2d-x/cocos2dx/include"/>
-									<listOptionValue builtIn="false" value="/Volumes/Documentos/devel/lib/cpp/cocos2d-x/cocos2dx/"/>
+									<listOptionValue builtIn="false" value="${COCOS2DX_ROOT}/cocos2dx/"/>
+									<listOptionValue builtIn="false" value="${COCOS2DX_ROOT}/cocos2dx/include"/>
+									<listOptionValue builtIn="false" value="$(NDK_ROOT)/platforms/android-9/arch-arm/usr/include/"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1087822252" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -50,12 +50,6 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="com.studiopangea.SimpleGame.null.1441286183" name="com.studiopangea.SimpleGame"/>
 	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="0.1782640147">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Default">
@@ -63,4 +57,13 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="0.1782640147.2064037490">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.1782640147">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
 </cproject>
