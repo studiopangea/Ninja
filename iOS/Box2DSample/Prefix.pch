@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'Box2DSample' target in the 'Box2DSample' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif
