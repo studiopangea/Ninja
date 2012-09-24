@@ -1,275 +1,340 @@
-//
-//  HelloWorldScene.cpp
-//  PruebaBox2d
-//
-//  Created by Gonzalo Diaz Cruz on 12-09-12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
-//
 #include "HelloWorldScene.h"
-#include "SimpleAudioEngine.h"
 
-using namespace cocos2d;
-using namespace CocosDenshion;
+USING_NS_CC;
 
-#define PTM_RATIO 32
+// Initialize arrays
+// _targets = new CCMutableArray<CCSprite*>;
+// _projectiles = new CCMutableArray<CCSprite*>;
 
-enum {
-    kTagParentNode = 1,
-};
-
-PhysicsSprite::PhysicsSprite()
-: m_pBody(NULL)
+HelloWorld::HelloWorld() : _targets(NULL), _projectiles(NULL)
 {
-    
-}
-
-void PhysicsSprite::setPhysicsBody(b2Body * body)
-{
-    m_pBody = body;
-}
-
-// this method will only get called if the sprite is batched.
-// return YES if the physics values (angles, position ) changed
-// If you return NO, then nodeToParentTransform won't be called.
-bool PhysicsSprite::isDirty(void)
-{
-    return true;
-}
-
-// returns the transform matrix according the Chipmunk Body values
-CCAffineTransform PhysicsSprite::nodeToParentTransform(void)
-{
-    b2Vec2 pos  = m_pBody->GetPosition();
-    
-    float x = pos.x * PTM_RATIO;
-    float y = pos.y * PTM_RATIO;
-    
-    if ( isIgnoreAnchorPointForPosition() ) {
-        x += m_tAnchorPointInPoints.x;
-        y += m_tAnchorPointInPoints.y;
-    }
-    
-    // Make matrix
-    float radians = m_pBody->GetAngle();
-    float c = cosf(radians);
-    float s = sinf(radians);
-    
-    if( ! CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero) ){
-        x += c*-m_tAnchorPointInPoints.x + -s*-m_tAnchorPointInPoints.y;
-        y += s*-m_tAnchorPointInPoints.x + c*-m_tAnchorPointInPoints.y;
-    }
-    
-    // Rot, Translate Matrix
-    m_tTransform = CCAffineTransformMake( c,  s,
-                                         -s,    c,
-                                         x,    y );
-    
-    return m_tTransform;
-}
-
-HelloWorld::HelloWorld()
-{
-    setTouchEnabled( true );
-    setAccelerometerEnabled( true );
-    
-    CCSize s = CCDirector::sharedDirector()->getWinSize();
-    // init physics
-    this->initPhysics();
-    
-    CCSpriteBatchNode *parent = CCSpriteBatchNode::create("blocks.png", 100);
-    m_pSpriteTexture = parent->getTexture();
-    
-    addChild(parent, 0, kTagParentNode);
-    
-    
-    addNewSpriteAtPosition(ccp(s.width/2, s.height/2));
-    
-    CCLabelTTF *label = CCLabelTTF::create("Tap screen", "Marker Felt", 32);
-    addChild(label, 0);
-    label->setColor(ccc3(0,0,255));
-    label->setPosition(ccp( s.width/2, s.height-50));
-    
-    scheduleUpdate();
+	_projectilesDestroyed = 0;
+	_goal = 10;
 }
 
 HelloWorld::~HelloWorld()
 {
-    delete world;
-    world = NULL;
-    
-    //delete m_debugDraw;
+
+  if (_targets)
+  {
+    _targets->release();
+    _targets = NULL;
+  }
+
+  if (_projectiles)
+  {
+    _projectiles->release();
+    _projectiles = NULL;
+  }
+
+  // cpp don't need to call super dealloc
+  // virtual destructor will do this
 }
 
-void HelloWorld::initPhysics()
-{
-    
-    CCSize s = CCDirector::sharedDirector()->getWinSize();
-    
-    b2Vec2 gravity;
-    gravity.Set(0.0f, -10.0f);
-    world = new b2World(gravity);
-    
-    // Do we want to let bodies sleep?
-    world->SetAllowSleeping(true);
-    
-    world->SetContinuousPhysics(true);
-    
-    //     m_debugDraw = new GLESDebugDraw( PTM_RATIO );
-    //     world->SetDebugDraw(m_debugDraw);
-    
-    uint32 flags = 0;
-    flags += b2Draw::e_shapeBit;
-    //        flags += b2Draw::e_jointBit;
-    //        flags += b2Draw::e_aabbBit;
-    //        flags += b2Draw::e_pairBit;
-    //        flags += b2Draw::e_centerOfMassBit;
-    //m_debugDraw->SetFlags(flags);
-    
-    
-    // Define the ground body.
-    b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0, 0); // bottom-left corner
-    
-    // Call the body factory which allocates memory for the ground body
-    // from a pool and creates the ground box shape (also from a pool).
-    // The body is also added to the world.
-    b2Body* groundBody = world->CreateBody(&groundBodyDef);
-    
-    // Define the ground box shape.
-    b2EdgeShape groundBox;
-    
-    // bottom
-    
-    groundBox.Set(b2Vec2(0,0), b2Vec2(s.width/PTM_RATIO,0));
-    groundBody->CreateFixture(&groundBox,0);
-    
-    // top
-    groundBox.Set(b2Vec2(0,s.height/PTM_RATIO), b2Vec2(s.width/PTM_RATIO,s.height/PTM_RATIO));
-    groundBody->CreateFixture(&groundBox,0);
-    
-    // left
-    groundBox.Set(b2Vec2(0,s.height/PTM_RATIO), b2Vec2(0,0));
-    groundBody->CreateFixture(&groundBox,0);
-    
-    // right
-    groundBox.Set(b2Vec2(s.width/PTM_RATIO,s.height/PTM_RATIO), b2Vec2(s.width/PTM_RATIO,0));
-    groundBody->CreateFixture(&groundBox,0);
-}
-
-void HelloWorld::draw()
-{
-    //
-    // IMPORTANT:
-    // This is only for debug purposes
-    // It is recommend to disable it
-    //
-    CCLayer::draw();
-    
-    ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
-    
-    kmGLPushMatrix();
-    
-    world->DrawDebugData();
-    
-    kmGLPopMatrix();
-}
-
-void HelloWorld::addNewSpriteAtPosition(CCPoint p)
-{
-    CCLOG("Add sprite %0.2f x %02.f",p.x,p.y);
-    CCNode* parent = getChildByTag(kTagParentNode);
-    
-    //We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
-    //just randomly picking one of the images
-    int idx = (CCRANDOM_0_1() > .5 ? 0:1);
-    int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-    PhysicsSprite *sprite = new PhysicsSprite();
-    sprite->initWithTexture(m_pSpriteTexture, CCRectMake(32 * idx,32 * idy,32,32));
-    sprite->autorelease();
-    
-    parent->addChild(sprite);
-    
-    sprite->setPosition( CCPointMake( p.x, p.y) );
-    
-    // Define the dynamic body.
-    //Set up a 1m squared box in the physics world
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-    
-    b2Body *body = world->CreateBody(&bodyDef);
-    
-    // Define another box shape for our dynamic body.
-    b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
-    
-    // Define the dynamic body fixture.
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
-    body->CreateFixture(&fixtureDef);
-    
-    sprite->setPhysicsBody(body);
-}
-
-
-void HelloWorld::update(float dt)
-{
-    //It is recommended that a fixed time step is used with Box2D for stability
-    //of the simulation, however, we are using a variable time step here.
-    //You need to make an informed choice, the following URL is useful
-    //http://gafferongames.com/game-physics/fix-your-timestep/
-    
-    int velocityIterations = 8;
-    int positionIterations = 1;
-    
-    // Instruct the world to perform a single step of simulation. It is
-    // generally best to keep the time step and iterations fixed.
-    world->Step(dt, velocityIterations, positionIterations);
-    
-    //Iterate over the bodies in the physics world
-    for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
-    {
-        if (b->GetUserData() != NULL) {
-            //Synchronize the AtlasSprites position and rotation with the corresponding body
-            CCSprite* myActor = (CCSprite*)b->GetUserData();
-            myActor->setPosition( CCPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO) );
-            myActor->setRotation( -1 * CC_RADIANS_TO_DEGREES(b->GetAngle()) );
-        }
-    }
-}
-
-void HelloWorld::ccTouchesEnded(CCSet* touches, CCEvent* event)
-{
-    //Add a new body/atlas sprite at the touched location
-    CCSetIterator it;
-    CCTouch* touch;
-    
-    for( it = touches->begin(); it != touches->end(); it++)
-    {
-        touch = (CCTouch*)(*it);
-        
-        if(!touch)
-            break;
-        
-        CCPoint location = touch->locationInView();
-        
-        location = CCDirector::sharedDirector()->convertToGL(location);
-        
-        addNewSpriteAtPosition( location );
-    }
-}
 
 CCScene* HelloWorld::scene()
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
-    
+
+    // 'layer' is an autorelease object
+    HelloWorld *layer = HelloWorld::create();
+
     // add layer as a child to scene
-    CCLayer* layer = new HelloWorld();
     scene->addChild(layer);
-    layer->release();
-    
+
+    // return the scene
     return scene;
 }
+
+
+// on "init" you need to initialize your instance
+bool HelloWorld::init()
+{
+
+    //////////////////////////////
+    // 1. super init first
+	if ( !CCLayerColor::initWithColor( ccc4(255,255,255,255) ) )
+	{
+	    return false;
+	}
+
+	this->setTouchEnabled(true);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
+	"background-music-aac.wav", true);
+
+	_targets = new CCArray();
+	_projectiles = new CCArray();
+
+	//CCDirector::sharedDirector()->setDisplayFPS(false);
+
+    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+
+    /////////////////////////////
+    // 2. add a menu item with "X" image, which is clicked to quit the program
+    //    you may modify it.
+
+    // add a "close" icon to exit the progress. it's an autorelease object
+    CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
+                                        "CloseNormal.png",
+                                        "CloseSelected.png",
+                                        this,
+                                        menu_selector(HelloWorld::menuCloseCallback));
+    if (CCApplication::sharedApplication().isIos() && !CCApplication::sharedApplication().isIpad())
+    {
+        pCloseItem->setPosition(ccp(visibleSize.width - 20 + origin.x, 20 + origin.y));
+    }
+    else
+    {
+        pCloseItem->setPosition(ccp(visibleSize.width - 40 + origin.x, 40 + origin.y));
+    }
+
+    // create menu, it's an autorelease object
+    CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
+    pMenu->setPosition(CCPointZero);
+    this->addChild(pMenu, 1);
+
+    /////////////////////////////
+    // 3. add your codes below...
+    /*
+    // add a label shows "Hello World"
+    // create and initialize a label
+    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", 24);
+    pLabel->setColor(ccc3(0, 0, 255));
+
+    // position the label on the center of the screen
+    pLabel->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height - 50 + origin.y));
+
+    // add the label as a child to this layer
+    this->addChild(pLabel, 1);
+
+    // add "HelloWorld" splash screen"
+
+    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
+
+    // position the sprite on the center of the screen
+    pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+
+    // add the sprite as a child to this layer
+    this->addChild(pSprite, 0);
+    */
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    CCSprite *player = CCSprite::create("Player.png",
+                                                CCRectMake(0, 0, 27, 40) );
+    player->setPosition( ccp(player->getContentSize().width/2, winSize.height/2) );
+    this->addChild(player);
+
+    this->schedule( schedule_selector(HelloWorld::gameLogic), 1.0 );
+    this->schedule( schedule_selector(HelloWorld::update) );
+
+    return true;
+}
+
+// cpp with cocos2d-x
+void HelloWorld::addTarget()
+{
+
+    CCSprite *target = CCSprite::create("Target.png",
+        CCRectMake(0,0,27,40) );
+
+    target->setTag(1);
+    _targets->addObject(target);
+
+    // Determine where to spawn the target along the Y axis
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    int minY = target->getContentSize().height/2;
+    int maxY = winSize.height
+                          -  target->getContentSize().height/2;
+    int rangeY = maxY - minY;
+    // srand( TimGetTicks() );
+    int actualY = ( rand() % rangeY ) + minY;
+
+    // Create the target slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated
+    target->setPosition(
+        ccp(winSize.width + (target->getContentSize().width/2),
+        actualY) );
+    this->addChild(target);
+
+    // Determine speed of the target
+    int minDuration = (int)2.0;
+    int maxDuration = (int)4.0;
+    int rangeDuration = maxDuration - minDuration;
+    // srand( TimGetTicks() );
+    int actualDuration = ( rand() % rangeDuration )
+                                        + minDuration;
+
+    // Create the actions
+    CCFiniteTimeAction* actionMove =
+        CCMoveTo::create( (float)actualDuration,
+        ccp(0 - target->getContentSize().width/2, actualY) );
+    CCFiniteTimeAction* actionMoveDone =
+        CCCallFuncN::create( this,
+        callfuncN_selector(HelloWorld::spriteMoveFinished));
+    target->runAction( CCSequence::create(actionMove,
+        actionMoveDone, NULL) );
+
+}
+
+void HelloWorld::spriteMoveFinished(CCNode* sender)
+{
+  CCSprite *sprite = (CCSprite *)sender;
+  this->removeChild(sprite, true);
+
+  if (sprite->getTag() == 1)  // target
+  {
+    _targets->removeObject(sprite);
+    GameOverScene *gameOverScene = GameOverScene::create();
+    gameOverScene->getLayer()->getLabel()->setString("You Lose :[");
+    CCDirector::sharedDirector()->replaceScene(gameOverScene);
+  }
+  else if (sprite->getTag() == 2) // projectile
+  {
+    _projectiles->removeObject(sprite);
+  }
+}
+
+void HelloWorld::gameLogic(float dt)
+{
+    this->addTarget();
+}
+
+void HelloWorld::menuCloseCallback(CCObject* pSender)
+{
+    CCDirector::sharedDirector()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
+}
+
+void HelloWorld::ccTouchesEnded(CCSet* touches, CCEvent* event)
+{
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(
+	"pew-pew-lei.wav");
+
+    // Choose one of the touches to work with
+    CCTouch* touch = (CCTouch*)( touches->anyObject() );
+    CCPoint location = touch->getLocationInView();
+    location = CCDirector::sharedDirector()->convertToGL(location);
+
+    // Set up initial location of projectile
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    CCSprite *projectile = CCSprite::create("Projectile.png",
+        CCRectMake(0, 0, 20, 20));
+    projectile->setPosition( ccp(20, winSize.height/2) );
+
+    projectile->setTag(2);
+    _projectiles->addObject(projectile);
+
+    // Determinie offset of location to projectile
+    int offX = location.x - projectile->getPosition().x;
+    int offY = location.y - projectile->getPosition().y;
+
+    // Bail out if we are shooting down or backwards
+    if (offX <= 0) return;
+
+    // Ok to add now - we've double checked position
+    this->addChild(projectile);
+
+    // Determine where we wish to shoot the projectile to
+    int realX = winSize.width
+                         + (projectile->getContentSize().width/2);
+    float ratio = (float)offY / (float)offX;
+    int realY = (realX * ratio) + projectile->getPosition().y;
+    CCPoint realDest = ccp(realX, realY);
+
+    // Determine the length of how far we're shooting
+    int offRealX = realX - projectile->getPosition().x;
+    int offRealY = realY - projectile->getPosition().y;
+    float length = sqrtf((offRealX * offRealX)
+                                        + (offRealY*offRealY));
+    float velocity = 480/1; // 480pixels/1sec
+    float realMoveDuration = length/velocity;
+
+    // Move projectile to actual endpoint
+    projectile->runAction( CCSequence::create(
+        CCMoveTo::create(realMoveDuration, realDest),
+        CCCallFuncN::create(this,
+
+        callfuncN_selector(HelloWorld::spriteMoveFinished)),
+        NULL) );
+}
+
+
+void HelloWorld::update(float dt)
+{
+  CCArray *projectilesToDelete = CCArray::create();
+  CCObject* it = NULL;
+  CCObject* jt = NULL;
+  CCSprite* projectile = NULL;
+
+  CCARRAY_FOREACH(_projectiles, it)
+  {
+	  projectile = (CCSprite*)it;
+
+      if(!projectile)
+          break;
+
+      // do something
+      CCRect projectileRect = CCRectMake(
+          projectile->getPosition().x
+                            - (projectile->getContentSize().width/2),
+          projectile->getPosition().y
+                            - (projectile->getContentSize().height/2),
+          projectile->getContentSize().width,
+          projectile->getContentSize().height);
+
+
+      CCArray *targetsToDelete = CCArray::create();
+
+      CCARRAY_FOREACH(_targets, jt)
+      {
+    	  CCSprite *target = (CCSprite*)jt;
+    	        CCRect targetRect = CCRectMake(
+    	          target->getPosition().x - (target->getContentSize().width/2),
+    	          target->getPosition().y - (target->getContentSize().height/2),
+    	          target->getContentSize().width,
+    	          target->getContentSize().height);
+
+    	        if (projectileRect.intersectsRect(targetRect))
+    	        {
+    	          targetsToDelete->addObject(target);
+    	        }
+      }
+
+      CCARRAY_FOREACH(targetsToDelete, jt)
+      {
+        CCSprite *target = (CCSprite*) jt;
+        _targets->removeObject(target);
+        this->removeChild(target, true);
+
+        _projectilesDestroyed++;
+		  if (_projectilesDestroyed > _goal)
+		  {
+			GameOverScene *gameOverScene = GameOverScene::create();
+			gameOverScene->getLayer()->getLabel()->setString("You Win!");
+			CCDirector::sharedDirector()->replaceScene(gameOverScene);
+		  }
+      }
+
+      if (targetsToDelete->count() >0)
+      {
+        projectilesToDelete->addObject(projectile);
+      }
+      targetsToDelete->release();
+  }
+
+      CCARRAY_FOREACH(projectilesToDelete, it)
+	  {
+    	    CCSprite* projectile =(CCSprite*)it;
+    	    _projectiles->removeObject(projectile);
+    	    this->removeChild(projectile, true);
+	  }
+
+      projectilesToDelete->release();
+
+
+}
+

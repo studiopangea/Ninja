@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.studiopangea.demo"
+      package="com.studiopangea.demo.ninja"
       android:versionCode="1"
       android:versionName="1.0">
 
@@ -10,7 +10,7 @@
         android:debuggable="true"
         android:icon="@drawable/icon">
 
-        <activity android:name=".Box2DSample"
+        <activity android:name=".Ninja"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

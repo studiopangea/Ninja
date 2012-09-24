@@ -1,4 +1,4 @@
-APPNAME="Box2DSample"
+APPNAME="Ninja"
 
 # options
 

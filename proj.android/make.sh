@@ -1,4 +1,4 @@
-APPNAME="SimpleGame"
+APPNAME="Ninja"
 
 # options
 

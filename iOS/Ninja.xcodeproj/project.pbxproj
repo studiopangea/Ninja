@@ -244,7 +244,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F308259415F6A6C400E6854F /* Box2DSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Box2DSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F308259415F6A6C400E6854F /* Ninja.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ninja.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F308259815F6A6C400E6854F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F308259A15F6A6C400E6854F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		F308259C15F6A6C400E6854F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -760,7 +760,7 @@
 		F308258915F6A6C400E6854F = {
 			isa = PBXGroup;
 			children = (
-				F30825A815F6A6C400E6854F /* Box2DSample */,
+				F30825A815F6A6C400E6854F /* Ninja */,
 				F308259715F6A6C400E6854F /* Frameworks */,
 				F308259515F6A6C400E6854F /* Products */,
 			);
@@ -769,7 +769,7 @@
 		F308259515F6A6C400E6854F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F308259415F6A6C400E6854F /* Box2DSample.app */,
+				F308259415F6A6C400E6854F /* Ninja.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -789,7 +789,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F30825A815F6A6C400E6854F /* Box2DSample */ = {
+		F30825A815F6A6C400E6854F /* Ninja */ = {
 			isa = PBXGroup;
 			children = (
 				F3AF83EF15F6AAAF007A6F50 /* Classes */,
@@ -798,7 +798,7 @@
 				F308280215F6A6D300E6854F /* ios */,
 				F308280015F6A6D300E6854F /* Supporting Files */,
 			);
-			path = Box2DSample;
+			path = Ninja;
 			sourceTree = "<group>";
 		};
 		F30825A915F6A6C400E6854F /* Resources */ = {
@@ -1733,9 +1733,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F308259315F6A6C400E6854F /* Box2DSample */ = {
+		F308259315F6A6C400E6854F /* Ninja */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F308281415F6A6D300E6854F /* Build configuration list for PBXNativeTarget "Box2DSample" */;
+			buildConfigurationList = F308281415F6A6D300E6854F /* Build configuration list for PBXNativeTarget "Ninja" */;
 			buildPhases = (
 				F308259015F6A6C400E6854F /* Sources */,
 				F308259115F6A6C400E6854F /* Frameworks */,
@@ -1745,9 +1745,9 @@
 			);
 			dependencies = (
 			);
-			name = Box2DSample;
-			productName = Box2DSample;
-			productReference = F308259415F6A6C400E6854F /* Box2DSample.app */;
+			name = Ninja;
+			productName = Ninja;
+			productReference = F308259415F6A6C400E6854F /* Ninja.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1758,7 +1758,7 @@
 			attributes = {
 				LastUpgradeCheck = 0440;
 			};
-			buildConfigurationList = F308258E15F6A6C400E6854F /* Build configuration list for PBXProject "Box2DSample" */;
+			buildConfigurationList = F308258E15F6A6C400E6854F /* Build configuration list for PBXProject "Ninja" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1770,7 +1770,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F308259315F6A6C400E6854F /* Box2DSample */,
+				F308259315F6A6C400E6854F /* Ninja */,
 			);
 		};
 /* End PBXProject section */
@@ -2081,7 +2081,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Box2DSample/Prefix.pch;
+				GCC_PREFIX_HEADER = Ninja/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
@@ -2091,7 +2091,7 @@
 					"\"$(PROJECT_NAME)/libs\"",
 					"\"$(PROJECT_NAME)/libs/Box2D\"",
 				);
-				INFOPLIST_FILE = Box2DSample/Resources/Info.plist;
+				INFOPLIST_FILE = Ninja/Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
@@ -2107,7 +2107,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Box2DSample/Prefix.pch;
+				GCC_PREFIX_HEADER = Ninja/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
@@ -2117,7 +2117,7 @@
 					"\"$(PROJECT_NAME)/libs\"",
 					"\"$(PROJECT_NAME)/libs/Box2D\"",
 				);
-				INFOPLIST_FILE = Box2DSample/Resources/Info.plist;
+				INFOPLIST_FILE = Ninja/Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
@@ -2131,7 +2131,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F308258E15F6A6C400E6854F /* Build configuration list for PBXProject "Box2DSample" */ = {
+		F308258E15F6A6C400E6854F /* Build configuration list for PBXProject "Ninja" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F308281215F6A6D300E6854F /* Debug */,
@@ -2140,7 +2140,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F308281415F6A6D300E6854F /* Build configuration list for PBXNativeTarget "Box2DSample" */ = {
+		F308281415F6A6D300E6854F /* Build configuration list for PBXNativeTarget "Ninja" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F308281515F6A6D300E6854F /* Debug */,

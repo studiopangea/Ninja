@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package com.studiopangea.demo;
+package com.studiopangea.demo.ninja;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxEditText;
@@ -36,7 +36,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.view.ViewGroup;
 
-public class Box2DSample extends Cocos2dxActivity{
+public class Ninja extends Cocos2dxActivity{
 	private Cocos2dxGLSurfaceView mGLView;
 	
 	protected void onCreate(Bundle savedInstanceState){
