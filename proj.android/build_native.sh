@@ -1,4 +1,4 @@
-APPNAME="SimpleGame"
+APPNAME="Box2DSample"
 
 # options
 

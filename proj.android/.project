@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>com.studiopangea.SimpleGame</name>
+	<name>com.studiopangea.Box2DSample</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -50,7 +50,7 @@
 		<link>
 			<name>Classes</name>
 			<type>2</type>
-			<location>/Volumes/Documentos/devel/lib/cpp/cocos2d-x/SimpleGame/Classes</location>
+			<location>/Volumes/Documentos/devel/lib/cpp/cocos2d-x/Box2DSample/Classes</location>
 		</link>
 	</linkedResources>
 </projectDescription>
