@@ -1,6 +1,6 @@
 //
-//  SimpleGameiOSAppDelegate.h
-//  SimpleGameiOS
+//  Box2DSampleiOSAppDelegate.h
+//  Box2DSampleiOS
 //
 //  Created by Gonzalo Diaz Cruz on 04-09-12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
