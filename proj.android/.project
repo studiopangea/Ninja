@@ -50,7 +50,13 @@
 		<link>
 			<name>Classes</name>
 			<type>2</type>
-			<location>/Volumes/Documentos/devel/lib/cpp/cocos2d-x/Box2DSample/Classes</location>
+			<locationURI>Classes</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>Classes</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/Classes</value>
+		</variable>
+	</variableList>
 </projectDescription>
