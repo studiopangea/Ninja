@@ -1,7 +1,7 @@
 Studio Pangea Ninja Demo
 ========================
 
-This is a demonstration of cocos2d-x, based on a hybrid project (Android / iOS).
+This is a demonstration of cocos2d-x, based on a hybrid project (Android / iOS) [Chapter 1].
 Deprecated and obsolete functions/methods fixed for Cocos2D-x 2.0.2.
 
 Ninja
@@ -9,14 +9,11 @@ Ninja
 
 This demostration uses:  
 
-* Draw sprites
-* Move sprites
-* Collision detection
-* Scene change
-* Music and sound effects (CocosDenshion)
-
-Sources
--------
+* Draw sprites [Chapter 2]
+* Move sprites [Chapter 3] [Chapter 4]
+* Collision detection [Chapter 5]
+* Scene change [Chapter 6]
+* Music and sound effects (CocosDenshion) [Chapter 7]
 
 [Chapter 1]: http://www.cocos2d-x.org/projects/cocos2d-x/wiki/Chapter_1_-_How_to_Create_a_New_cocos2d-x_project_on_multi-platforms
 
