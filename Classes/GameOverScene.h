@@ -1,3 +1,9 @@
+//
+//  Created by Gonzalo Diaz Cruz on 04-09-12.
+//  Copyright Studio Pangea 2012. All rights reserved.
+//  http://www.studiopangea.com/
+//
+
 #ifndef _GAME_OVER_SCENE_H_
 #define _GAME_OVER_SCENE_H_
 

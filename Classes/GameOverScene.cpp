@@ -1,4 +1,9 @@
-// cpp with cocos2d-x
+//
+//  Created by Gonzalo Diaz Cruz on 04-09-12.
+//  Copyright Studio Pangea 2012. All rights reserved.
+//  http://www.studiopangea.com/
+//
+
 #include "GameOverScene.h"
 #include "HelloWorldScene.h"
 

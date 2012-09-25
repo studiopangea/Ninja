@@ -1,9 +1,7 @@
 //
-//  DemoiOSAppDelegate.h
-//  DemoiOS
-//
 //  Created by Gonzalo Diaz Cruz on 04-09-12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Copyright Studio Pangea 2012. All rights reserved.
+//  http://www.studiopangea.com/
 //
 
 #ifndef  _APP_DELEGATE_H_
