@@ -34,11 +34,13 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.943910811" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.225889130" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../iOS/Ninja/libs/CocosDenshion/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../iOS/Ninja/libs&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/platform/android&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/external&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/CocosDenshion/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/kazmath/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1087822252" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -50,13 +52,6 @@
 					</folderInfo>
 					<fileInfo id="0.1782640147.897077494" name="HelloWorldScene.cpp" rcbsApplicability="disable" resourcePath="Classes/HelloWorldScene.cpp" toolsToInvoke="org.eclipse.cdt.build.core.settings.holder.943910811.917057893">
 						<tool id="org.eclipse.cdt.build.core.settings.holder.943910811.917057893" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder.113423798">
-							<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.379774514" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-								<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${COCOS2DX_ROOT}/cocos2dx/include&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${NDK_ROOT}/platforms/android-9/arch-arm/usr/include/&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../iOS/Ninja/libs/Box2D&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../iOS/Ninja/libs/CocosDenshion/include/&quot;"/>
-							</option>
 							<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1931199280" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 						</tool>
 					</fileInfo>
