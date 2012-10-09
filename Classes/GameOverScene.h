@@ -15,7 +15,7 @@ public:
     GameOverLayer():_label(NULL) {};
     virtual ~GameOverLayer();
     bool init();
-    LAYER_CREATE_FUNC(GameOverLayer);
+    CREATE_FUNC(GameOverLayer);
 
     void gameOverDone();
 
@@ -30,7 +30,7 @@ public:
     bool init();
     //static GameOverScene *create();
 
-    SCENE_CREATE_FUNC(GameOverScene);
+    CREATE_FUNC(GameOverScene);
 
     CC_SYNTHESIZE_READONLY(GameOverLayer*, _layer, Layer);
 };

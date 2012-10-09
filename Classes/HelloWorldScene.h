@@ -37,7 +37,7 @@ public:
     void spriteMoveFinished(CCNode* sender);
 
     // implement the "static node()" method manually
-    LAYER_CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(HelloWorld);
 
 protected:
     int _projectilesDestroyed;
