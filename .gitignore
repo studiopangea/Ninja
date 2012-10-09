@@ -7,13 +7,27 @@
 *.mode2v3
 *.perspectivev3
 *.xcuserstate
+.!*
 project.xcworkspace/
 xcuserdata/
 
 # Generated files
-*.o
 *.pyc
 
+## C++ IGNORE
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
 
 #Python modules
 MANIFEST
