@@ -2,7 +2,7 @@
 //  NinjaAppController.mm
 //  Ninja
 //
-//  Created by Gonzalo Diaz Cruz on 04-09-12.
+//  Created by Gonzalo Diaz Cruz on 30-09-12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
 //
 #import <UIKit/UIKit.h>
@@ -14,6 +14,9 @@
 #import "RootViewController.h"
 
 @implementation AppController
+
+@synthesize window;
+@synthesize viewController;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -33,7 +36,7 @@ static AppDelegate s_sharedApplication;
                               preserveBackbuffer: NO
                                       sharegroup: nil
                                    multiSampling: NO
-                                 numberOfSamples: 0 ];
+                                 numberOfSamples:0 ];
 
     // Use RootViewController manage EAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
@@ -41,20 +44,22 @@ static AppDelegate s_sharedApplication;
     viewController.view = __glView;
 
     // Set RootViewController to window
-    NSString *reqSysVer = @"6.0";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    
-    if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
+    if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
     {
-        [window setRootViewController:viewController]; //iOS 6
-    } else {
-        [window addSubview: viewController.view]; //iOS 5 or less
+        // warning: addSubView doesn't work on iOS6
+        [window addSubview: viewController.view];
     }
+    else
+    {
+        // use this method on ios6
+        [window setRootViewController:viewController];
+    }
+    
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
 
-    cocos2d::CCApplication::sharedApplication().run();
+    cocos2d::CCApplication::sharedApplication()->run();
     return YES;
 }
 
@@ -79,14 +84,14 @@ static AppDelegate s_sharedApplication;
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
-    cocos2d::CCApplication::sharedApplication().applicationDidEnterBackground();
+    cocos2d::CCApplication::sharedApplication()->applicationDidEnterBackground();
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
-    cocos2d::CCApplication::sharedApplication().applicationWillEnterForeground();
+    cocos2d::CCApplication::sharedApplication()->applicationWillEnterForeground();
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
