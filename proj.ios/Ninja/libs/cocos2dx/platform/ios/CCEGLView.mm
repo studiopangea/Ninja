@@ -41,11 +41,6 @@ CCEGLView::~CCEGLView()
 
 }
 
-bool CCEGLView::isIpad()
-{
-    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-}
-
 bool CCEGLView::isOpenGLReady()
 {
     return [EAGLView sharedEGLView] != NULL;
@@ -53,8 +48,7 @@ bool CCEGLView::isOpenGLReady()
     
 bool CCEGLView::setContentScaleFactor(float contentScaleFactor)
 {
-    // can not enable retina because have used resolution policy
-    assert(m_eResolutionPolicy == kResolutionUnKnown);
+    assert(m_eResolutionPolicy == kResolutionUnKnown); // cannot enable retina mode
     
     if ([[EAGLView sharedEGLView] respondsToSelector:@selector(setContentScaleFactor:)])
     {
@@ -111,10 +105,10 @@ void CCEGLView::setIMEKeyboardState(bool bOpen)
     }
 }
 
-CCEGLView& CCEGLView::sharedOpenGLView()
+CCEGLView* CCEGLView::sharedOpenGLView()
 {
     static CCEGLView instance;
-    return instance;
+    return &instance;
 }
 
 NS_CC_END

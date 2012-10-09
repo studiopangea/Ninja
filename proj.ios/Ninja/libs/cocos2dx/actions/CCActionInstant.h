@@ -28,6 +28,7 @@ THE SOFTWARE.
 #define __CCINSTANT_ACTION_H__
 
 #include <string>
+#include "ccTypeInfo.h"
 #include "CCAction.h"
 
 NS_CC_BEGIN
@@ -215,6 +216,7 @@ public:
     CCCallFunc()
         : m_pSelectorTarget(NULL)
         , m_pCallFunc(NULL)
+		, m_nScriptHandler(0)
     {
     }
     virtual ~CCCallFunc()
@@ -233,7 +235,10 @@ public:
     */
     static CCCallFunc * create(CCObject* pSelectorTarget, SEL_CallFunc selector);
 
-    /** initializes the action with the callback 
+	/** creates the action with the handler script function */
+	static CCCallFunc * create(int nHandler);
+
+	/** initializes the action with the callback 
     
     typedef void (CCObject::*SEL_CallFunc)();
     */
@@ -258,10 +263,13 @@ public:
             m_pSelectorTarget = pSel; 
         }
     }
-
+    
+    inline int getScriptHandler() { return m_nScriptHandler; };
 protected:
     /** Target that will be called */
     CCObject*   m_pSelectorTarget;
+
+	int m_nScriptHandler;
 
     union
     {
@@ -276,11 +284,16 @@ protected:
 @brief Calls a 'callback' with the node as the first argument
 N means Node
 */
-class CC_DLL CCCallFuncN : public CCCallFunc
+class CC_DLL CCCallFuncN : public CCCallFunc, public TypeInfo
 {
 public:
     CCCallFuncN(){}
     virtual ~CCCallFuncN(){}
+    virtual long getClassTypeInfo() {
+		static const long id = cocos2d::getHashCodeByString(typeid(cocos2d::CCCallFunc).name());
+		return id;
+    }
+
     /** creates the action with the callback 
     @deprecated: This interface will be deprecated sooner or later.
     typedef void (CCObject::*SEL_CallFuncN)(CCNode*);
@@ -292,6 +305,10 @@ public:
     typedef void (CCObject::*SEL_CallFuncN)(CCNode*);
     */
     static CCCallFuncN * create(CCObject* pSelectorTarget, SEL_CallFuncN selector);
+
+	/** creates the action with the handler script function */
+	static CCCallFuncN * create(int nHandler);
+
     /** initializes the action with the callback 
 
     typedef void (CCObject::*SEL_CallFuncN)(CCNode*);
@@ -310,6 +327,10 @@ public:
 class CC_DLL CCCallFuncND : public CCCallFuncN
 {
 public:
+    virtual long getClassTypeInfo() {
+        static const long id = cocos2d::getHashCodeByString(typeid(cocos2d::CCCallFunc).name());
+		return id;
+    }
 
     /** creates the action with the callback and the data to pass as an argument 
     @deprecated: This interface will be deprecated sooner or later.
@@ -335,11 +356,18 @@ protected:
 O means Object.
 @since v0.99.5
 */
-class CC_DLL CCCallFuncO : public CCCallFunc
+
+class CC_DLL CCCallFuncO : public CCCallFunc, public TypeInfo
 {
 public:
     CCCallFuncO();
     virtual ~CCCallFuncO();
+
+    virtual long getClassTypeInfo() {
+	    static const long id = cocos2d::getHashCodeByString(typeid(cocos2d::CCCallFunc).name());
+		return id;
+    }
+
     /** creates the action with the callback 
     @deprecated: This interface will be deprecated sooner or later.
     typedef void (CCObject::*SEL_CallFuncO)(CCObject*);

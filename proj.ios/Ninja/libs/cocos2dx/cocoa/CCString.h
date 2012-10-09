@@ -24,6 +24,10 @@ THE SOFTWARE.
 #ifndef __CCSTRING_H__
 #define __CCSTRING_H__
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)
+#include <string.h>
+#endif
+
 #include <stdarg.h>
 #include <string>
 #include <functional>
@@ -80,7 +84,7 @@ public:
     virtual CCObject* copyWithZone(CCZone* pZone);
     virtual bool isEqual(const CCObject* pObject);
 
-    /* static funcitons */
+    /* static functions */
     /** create a string with c string
      *  @return A CCString pointer which is an autorelease object pointer,
      *          it means that you needn't do a release operation unless you retain it.
@@ -116,7 +120,7 @@ public:
      */
     CC_DEPRECATED_ATTRIBUTE static CCString* stringWithContentsOfFile(const char* pszFileName);
 
-    /** create a string with std string, you can also pass a c string pointer because the default constuctor of std::string can access a c string pointer. 
+    /** create a string with std string, you can also pass a c string pointer because the default constructor of std::string can access a c string pointer. 
      *  @return A CCString pointer which is an autorelease object pointer,
      *          it means that you needn't do a release operation unless you retain it.
      */

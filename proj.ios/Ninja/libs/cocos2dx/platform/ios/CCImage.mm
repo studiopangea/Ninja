@@ -97,7 +97,8 @@ static bool _initWithImage(CGImageRef cgImage, tImageInfo *pImageinfo)
     CGContextDrawImage(context, CGRectMake(0, 0, pImageinfo->width, pImageinfo->height), cgImage);
     
     CGContextRelease(context);
-    
+    CFRelease(colorSpace);
+  
     return true;
 }
 
@@ -227,32 +228,32 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         font = [UIFont fontWithName:fntName size:nSize];  
         if (font)
         {
-                dim = _calculateStringSizeWithFontOrZFont(str, font, &constrainSize, false);
+            dim = _calculateStringSizeWithFontOrZFont(str, font, &constrainSize, false);
         }      
         
         if (! font)
         {
-                font = [[FontManager sharedManager] zFontWithName:fntName pointSize:nSize];
-                if (font)
-                {
-                    dim =_calculateStringSizeWithFontOrZFont(str, font, &constrainSize, true);
-                }  
+            font = [[FontManager sharedManager] zFontWithName:fntName pointSize:nSize];
+            if (font)
+            {
+                dim =_calculateStringSizeWithFontOrZFont(str, font, &constrainSize, true);
+            }  
         }
 
         if (! font)
         {
-                fntName = _isValidFontName(pFontName) ? fntName : @"MarkerFelt-Wide";
-                font = [UIFont fontWithName:fntName size:nSize];
+            fntName = _isValidFontName(pFontName) ? fntName : @"MarkerFelt-Wide";
+            font = [UIFont fontWithName:fntName size:nSize];
                 
-                if (! font) 
-                {
-                        font = [UIFont systemFontOfSize:nSize];
-                }
+            if (! font) 
+            {
+                font = [UIFont systemFontOfSize:nSize];
+            }
                 
-                if (font)
-                {
-                    dim = _calculateStringSizeWithFontOrZFont(str, font, &constrainSize, false);
-                }  
+            if (font)
+            {
+                dim = _calculateStringSizeWithFontOrZFont(str, font, &constrainSize, false);
+            }  
         }
 
         CC_BREAK_IF(! font);
@@ -436,7 +437,7 @@ bool CCImage::_initWithRawData(void *pData, int nDatalen, int nWidth, int nHeigh
         m_nWidth    = (short)nWidth;
         m_bHasAlpha = true;
 
-        // only RGBA8888 surported
+        // only RGBA8888 supported
         int nBytesPerComponent = 4;
         int nSize = nHeight * nWidth * nBytesPerComponent;
         m_pData = new unsigned char[nSize];

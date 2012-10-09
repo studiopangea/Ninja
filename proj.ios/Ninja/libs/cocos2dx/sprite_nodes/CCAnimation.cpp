@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
 
@@ -69,7 +69,7 @@ CCObject* CCAnimationFrame::copyWithZone(CCZone* pZone)
     else
     {
         pCopy = new CCAnimationFrame();
-        pZone = pNewZone = new CCZone(pCopy);
+        pNewZone = new CCZone(pCopy);
     }
 
     pCopy->initWithSpriteFrame((CCSpriteFrame*)m_pSpriteFrame->copy()->autorelease(),
@@ -232,7 +232,7 @@ CCObject* CCAnimation::copyWithZone(CCZone* pZone)
     else
     {
         pCopy = new CCAnimation();
-        pZone = pNewZone = new CCZone(pCopy);
+        pNewZone = new CCZone(pCopy);
     }
 
     pCopy->initWithAnimationFrames(m_pFrames, m_fDelayPerUnit, m_uLoops);

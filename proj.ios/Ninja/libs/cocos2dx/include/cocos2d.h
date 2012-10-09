@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
 
@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 // 0x00 HI ME LO
 // 00   02 00 00
-#define COCOS2D_VERSION 0x00020000
+#define COCOS2D_VERSION 0x00020003
 
 //
 // all cocos2d include files
@@ -141,6 +141,14 @@ THE SOFTWARE.
     #include "platform/android/CCGL.h"
     #include "platform/android/CCStdC.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)
+    #include "platform/blackberry/CCAccelerometer.h"
+    #include "platform/blackberry/CCApplication.h"
+    #include "platform/blackberry/CCEGLView.h"
+    #include "platform/blackberry/CCGL.h"
+    #include "platform/blackberry/CCStdC.h"
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	#include "platform/win32/CCAccelerometer.h"

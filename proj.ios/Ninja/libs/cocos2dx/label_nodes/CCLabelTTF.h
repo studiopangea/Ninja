@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 
 http://www.cocos2d-x.org
@@ -119,7 +119,7 @@ public:
     void setVerticalAlignment(CCVerticalTextAlignment verticalAlignment);
     
     CCSize getDimensions();
-    void setDimensions(CCSize &dim);
+    void setDimensions(const CCSize &dim);
     
     float getFontSize();
     void setFontSize(float fontSize);
@@ -143,6 +143,7 @@ protected:
     
     std::string m_string;
 };
+
 
 // end of GUI group
 /// @}

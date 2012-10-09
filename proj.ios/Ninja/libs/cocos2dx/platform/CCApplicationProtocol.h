@@ -3,6 +3,17 @@
 
 NS_CC_BEGIN
 
+enum TargetPlatform
+{
+    kTargetWindows,
+    kTargetLinux,
+    kTargetMacOS,
+    kTargetAndroid,
+    kTargetIphone,
+    kTargetIpad,
+    kTargetBlackBerry,
+};
+
 /**
  * @addtogroup platform
  * @{
@@ -35,7 +46,7 @@ public:
 
     /**
     @brief    Callback by CCDirector for limit FPS.
-    @interval       The time, which expressed in second in second, between current frame and next. 
+    @interval       The time, expressed in seconds, between current frame and next. 
     */
     virtual void setAnimationInterval(double interval) = 0;
 
@@ -45,9 +56,10 @@ public:
     */
     virtual ccLanguageType getCurrentLanguage() = 0;
     
-    virtual bool isIpad() { return false; }
-    virtual bool isIos() { return false; }
-
+    /**
+     @brief Get target platform
+     */
+    virtual TargetPlatform getTargetPlatform() = 0;
 };
 
 // end of platform group

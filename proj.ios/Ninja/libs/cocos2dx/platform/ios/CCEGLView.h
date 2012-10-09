@@ -39,7 +39,6 @@ public:
    ~CCEGLView();
 
     virtual bool    isOpenGLReady();
-    virtual bool    isIpad();
     virtual bool    setContentScaleFactor(float contentScaleFactor);
     virtual bool    enableRetina();
     
@@ -49,7 +48,7 @@ public:
     
     virtual void setIMEKeyboardState(bool bOpen);
     
-    static CCEGLView& sharedOpenGLView();
+    static CCEGLView* sharedOpenGLView();
 
 };
 

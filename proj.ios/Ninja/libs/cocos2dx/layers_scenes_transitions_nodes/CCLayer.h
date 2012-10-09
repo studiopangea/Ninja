@@ -119,6 +119,7 @@ public:
     bool isKeypadEnabled();
     void setKeypadEnabled(bool value);
     
+    inline CCTouchScriptHandlerEntry* getScriptHandlerEntry() { return m_pScriptHandlerEntry; };
 protected:   
     bool m_bIsTouchEnabled;
     bool m_bIsAccelerometerEnabled;
@@ -130,80 +131,7 @@ private:
     int  excuteScriptTouchHandler(int nEventType, CCTouch *pTouch);
     int  excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
 };
-    
-// for the subclass of CCLayer, each has to implement the static "node" method 
-// @deprecated: This interface will be deprecated sooner or later.
-#define LAYER_NODE_FUNC(layer) \
-    CC_DEPRECATED_ATTRIBUTE static layer* node() \
-    { \
-        layer *pRet = new layer(); \
-        if (pRet && pRet->init()) \
-    { \
-        pRet->autorelease(); \
-        return pRet; \
-    } \
-    else \
-    { \
-        delete pRet; \
-        pRet = NULL; \
-        return NULL; \
-    } \
-}
 
-
-// for the subclass of CCLayer, each has to implement the static "create" method 
-#define LAYER_CREATE_FUNC(layer) \
-    static layer* create() \
-    { \
-        layer *pRet = new layer(); \
-        if (pRet && pRet->init()) \
-    { \
-        pRet->autorelease(); \
-        return pRet; \
-    } \
-    else \
-    { \
-        delete pRet; \
-        pRet = NULL; \
-        return NULL; \
-    } \
-}
-
-// @deprecated: This interface will be deprecated sooner or later.
-#define LAYER_NODE_FUNC_PARAM(layer,__PARAMTYPE__,__PARAM__) \
-    CC_DEPRECATED_ATTRIBUTE static layer* node(__PARAMTYPE__ __PARAM__) \
-    { \
-        layer *pRet = new layer(); \
-        if (pRet && pRet->init(__PARAM__)) \
-        { \
-            pRet->autorelease(); \
-            return pRet; \
-        } \
-        else \
-        { \
-            delete pRet; \
-            pRet = NULL; \
-            return NULL; \
-        } \
-    }
- 
-    
-#define LAYER_CREATE_FUNC_PARAM(layer,__PARAMTYPE__,__PARAM__) \
-    static layer* create(__PARAMTYPE__ __PARAM__) \
-    { \
-        layer *pRet = new layer(); \
-        if (pRet && pRet->init(__PARAM__)) \
-        { \
-            pRet->autorelease(); \
-            return pRet; \
-        } \
-        else \
-        { \
-            delete pRet; \
-            pRet = NULL; \
-            return NULL; \
-        } \
-    }
 //
 // CCLayerColor
 //
@@ -220,7 +148,6 @@ protected:
     ccColor4F  m_pSquareColors[4];
 
 public:
-
     CCLayerColor();
     virtual ~CCLayerColor();
 
@@ -266,11 +193,12 @@ public:
     virtual void setOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
     virtual bool isOpacityModifyRGB(void) { return false;}
     //@deprecated: This interface will be deprecated sooner or later.
-    LAYER_CREATE_FUNC(CCLayerColor)
-    LAYER_NODE_FUNC(CCLayerColor)
+    CREATE_FUNC(CCLayerColor)
+    NODE_FUNC(CCLayerColor)
 protected:
     virtual void updateColor();
 };
+
 
 //
 // CCLayerGradient
@@ -298,6 +226,7 @@ If ' compressedInterpolation' is enabled (default mode) you will see both the st
 class CC_DLL CCLayerGradient : public CCLayerColor
 {
 public:
+
     /** Creates a full-screen CCLayer with a gradient between start and end. 
     @deprecated: This interface will be deprecated sooner or later.
     */
@@ -336,11 +265,12 @@ public:
     virtual bool isCompressedInterpolation();
 
     // @deprecated: This interface will be deprecated sooner or later.
-    LAYER_NODE_FUNC(CCLayerGradient)
-    LAYER_CREATE_FUNC(CCLayerGradient)
+    NODE_FUNC(CCLayerGradient)
+    CREATE_FUNC(CCLayerGradient)
 protected:
     virtual void updateColor();
 };
+
 
 /** @brief CCMultipleLayer is a CCLayer with the ability to multiplex it's children.
 Features:
@@ -353,7 +283,6 @@ protected:
     unsigned int m_nEnabledLayer;
     CCArray*     m_pLayers;
 public:
-
     CCLayerMultiplex();
     virtual ~CCLayerMultiplex();
 
@@ -364,7 +293,7 @@ public:
 
     /**
      * lua script can not init with undetermined number of variables
-     * so add these functinons to be used with lua.
+     * so add these functions to be used with lua.
      @deprecated: This interface will be deprecated sooner or later.
      */
     CC_DEPRECATED_ATTRIBUTE static CCLayerMultiplex * layerWithLayer(CCLayer* layer);
@@ -374,7 +303,7 @@ public:
 
     /**
      * lua script can not init with undetermined number of variables
-     * so add these functinons to be used with lua.
+     * so add these functions to be used with lua.
      */
     static CCLayerMultiplex * createWithLayer(CCLayer* layer);
 
@@ -392,10 +321,11 @@ public:
     void switchToAndReleaseMe(unsigned int n);
     
     //@deprecated: This interface will be deprecated sooner or later.
-    LAYER_NODE_FUNC(CCLayerMultiplex)
+    NODE_FUNC(CCLayerMultiplex)
 
-    LAYER_CREATE_FUNC(CCLayerMultiplex)
+    CREATE_FUNC(CCLayerMultiplex)
 };
+
 
 // end of layer group
 /// @}

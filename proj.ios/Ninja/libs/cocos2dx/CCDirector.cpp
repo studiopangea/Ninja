@@ -70,7 +70,7 @@ using namespace std;
 unsigned int g_uNumberOfDraws = 0;
 
 NS_CC_BEGIN
-// XXX it shoul be a Director ivar. Move it there once support for multiple directors is added
+// XXX it should be a Director ivar. Move it there once support for multiple directors is added
 
 // singleton stuff
 static CCDisplayLinkDirector s_SharedDirector;
@@ -136,11 +136,8 @@ bool CCDirector::init(void)
 
     m_pobOpenGLView = NULL;
 
-    m_fContentScaleFactor = 1;    
+    m_fContentScaleFactor = 1.0f;
     m_bIsContentScaleSupported = false;
-
-    m_pWatcherFun = NULL;
-    m_pWatcherSender = NULL;
 
     // scheduler
     m_pScheduler = new CCScheduler();
@@ -203,7 +200,7 @@ void CCDirector::setGLDefaultValues(void)
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-// Draw the SCene
+// Draw the Scene
 void CCDirector::drawScene(void)
 {
     // calculate "global" dt
@@ -241,11 +238,6 @@ void CCDirector::drawScene(void)
     if (m_bDisplayStats)
     {
         showStats();
-    }
-
-    if (m_pWatcherFun && m_pWatcherSender)
-    {
-        (*m_pWatcherFun)(m_pWatcherSender);
     }
 
     kmGLPopMatrix();
@@ -298,16 +290,13 @@ void CCDirector::calculateDeltaTime(void)
     *m_pLastUpdate = now;
 }
 
-
-// m_pobOpenGLView
-
 void CCDirector::setOpenGLView(CCEGLView *pobOpenGLView)
 {
     CCAssert(pobOpenGLView, "opengl view should not be null");
 
     if (m_pobOpenGLView != pobOpenGLView)
     {
-        // because EAGLView is not kind of CCObject
+        // EAGLView is not a CCObject
         delete m_pobOpenGLView; // [openGLView_ release]
         m_pobOpenGLView = pobOpenGLView;
 
@@ -599,6 +588,9 @@ void CCDirector::end()
 
 void CCDirector::purgeDirector()
 {
+    // cleanup scheduler
+    getScheduler()->unscheduleAllSelectors();
+    
     // don't release the event handlers
     // They are needed in case the director is run again
     m_pTouchDispatcher->removeAllDelegates();
@@ -741,7 +733,7 @@ void CCDirector::showStats(void)
                 sprintf(m_pszFPS, "%.1f", m_fFrameRate);
                 m_pFPSLabel->setString(m_pszFPS);
                 
-                sprintf(m_pszFPS, "%4d", g_uNumberOfDraws);
+                sprintf(m_pszFPS, "%4lu", (unsigned long)g_uNumberOfDraws);
                 m_pDrawsLabel->setString(m_pszFPS);
             }
             
@@ -822,7 +814,7 @@ bool CCDirector::enableRetinaDisplay(bool enabled)
         return true;
     }
 
-    // Already diabled?
+    // Already disabled?
     if (!enabled && m_fContentScaleFactor == 1)
     {
         return false;
@@ -950,7 +942,7 @@ CCAccelerometer* CCDirector::getAccelerometer()
 * implementation of DisplayLinkDirector
 **************************************************/
 
-// should we afford 4 types of director ??
+// should we implement 4 types of director ??
 // I think DisplayLinkDirector is enough
 // so we now only support DisplayLinkDirector
 void CCDisplayLinkDirector::startAnimation(void)
@@ -961,7 +953,7 @@ void CCDisplayLinkDirector::startAnimation(void)
     }
 
     m_bInvalid = false;
-    CCApplication::sharedApplication().setAnimationInterval(m_dAnimationInterval);
+    CCApplication::sharedApplication()->setAnimationInterval(m_dAnimationInterval);
 }
 
 void CCDisplayLinkDirector::mainLoop(void)
@@ -994,13 +986,6 @@ void CCDisplayLinkDirector::setAnimationInterval(double dValue)
         startAnimation();
     }    
 }
-
-void CCDirector::setWatcherCallbackFun(void *pSender, WatcherCallbackFun fun)
-{
-    m_pWatcherFun = fun;
-    m_pWatcherSender = pSender;
-}
-
 
 NS_CC_END
 

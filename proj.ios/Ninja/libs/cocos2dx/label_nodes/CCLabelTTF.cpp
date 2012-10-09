@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 
 http://www.cocos2d-x.org
@@ -221,13 +221,13 @@ CCSize CCLabelTTF::getDimensions()
     return m_tDimensions;
 }
 
-void CCLabelTTF::setDimensions(CCSize &dim)
+void CCLabelTTF::setDimensions(const CCSize &dim)
 {
     if (dim.width != m_tDimensions.width || dim.height != m_tDimensions.height)
     {
         m_tDimensions = dim;
         
-        // Force udpate
+        // Force update
         if (m_string.size() > 0)
         {
             this->updateTexture();
@@ -278,21 +278,16 @@ void CCLabelTTF::setFontName(const char *fontName)
 void CCLabelTTF::updateTexture()
 {
     CCTexture2D *tex;
-	if (m_tDimensions.width == 0 || m_tDimensions.height == 0)
-    {
-        tex = new CCTexture2D();
-        tex->initWithString(m_string.c_str(), m_pFontName->c_str(), m_fFontSize * CC_CONTENT_SCALE_FACTOR()) ;
-    }
-	else
-    {
-        tex = new CCTexture2D();
-        tex->initWithString(m_string.c_str(),
-                            CC_SIZE_POINTS_TO_PIXELS(m_tDimensions), 
-                            m_hAlignment,
-                            m_vAlignment,
-                            m_pFontName->c_str(),
-                            m_fFontSize * CC_CONTENT_SCALE_FACTOR());
-    }
+    
+    // let system compute label's width or height when its value is 0
+    // refer to cocos2d-x issue #1430
+    tex = new CCTexture2D();
+    tex->initWithString(m_string.c_str(),
+                        CC_SIZE_POINTS_TO_PIXELS(m_tDimensions), 
+                        m_hAlignment,
+                        m_vAlignment,
+                        m_pFontName->c_str(),
+                        m_fFontSize * CC_CONTENT_SCALE_FACTOR());
 	
     this->setTexture(tex);
     tex->release();
