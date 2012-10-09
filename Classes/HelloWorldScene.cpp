@@ -104,28 +104,7 @@ bool HelloWorld::init()
 
     /////////////////////////////
     // 3. add your codes below...
-    /*
-    // add a label shows "Hello World"
-    // create and initialize a label
-    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", 24);
-    pLabel->setColor(ccc3(0, 0, 255));
 
-    // position the label on the center of the screen
-    pLabel->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height - 50 + origin.y));
-
-    // add the label as a child to this layer
-    this->addChild(pLabel, 1);
-
-    // add "HelloWorld" splash screen"
-
-    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
-
-    // position the sprite on the center of the screen
-    pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(pSprite, 0);
-    */
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     CCSprite *player = CCSprite::create("Player.png",
                                                 CCRectMake(0, 0, 27, 40) );
