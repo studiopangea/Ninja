@@ -36,6 +36,8 @@ public:
     void update(float dt);
     void spriteMoveFinished(CCNode* sender);
 
+    virtual void keyBackClicked();
+
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
 

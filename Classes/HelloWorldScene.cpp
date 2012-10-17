@@ -57,22 +57,23 @@ CCScene* HelloWorld::scene()
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
+	this->setKeypadEnabled(true);
+    this->setTouchEnabled(true);
 
     //////////////////////////////
     // 1. super init first
-	if ( !CCLayerColor::initWithColor( ccc4(255,255,255,255) ) )
-	{
-	    return false;
-	}
+    if ( !CCLayerColor::initWithColor( ccc4(255,255,255,255) ) )
+    {
+        return false;
+    }
 
-	this->setTouchEnabled(true);
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
-	"background-music-aac.wav", true);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
+    "background-music-aac.wav", true);
 
-	_targets = new CCArray();
-	_projectiles = new CCArray();
+    _targets = new CCArray();
+    _projectiles = new CCArray();
 
-	//CCDirector::sharedDirector()->setDisplayFPS(false);
+    //CCDirector::sharedDirector()->setDisplayFPS(false);
 
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
@@ -258,7 +259,7 @@ void HelloWorld::update(float dt)
 
   CCARRAY_FOREACH(_projectiles, it)
   {
-	  projectile = (CCSprite*)it;
+      projectile = (CCSprite*)it;
 
       if(!projectile)
           break;
@@ -322,5 +323,17 @@ void HelloWorld::update(float dt)
       projectilesToDelete->release();
 
 
+}
+
+
+void HelloWorld::keyBackClicked()
+{
+	CCLog("Back clicked");
+
+    CCDirector::sharedDirector()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
 }
 
