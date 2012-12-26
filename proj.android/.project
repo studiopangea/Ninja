@@ -57,11 +57,10 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PARENT_LOC/Resources</locationURI>
 		</link>
+		<link>
+			<name>Library</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PARENT_LOC/Library</locationURI>
+		</link>
 	</linkedResources>
-	<variableList>
-		<variable>
-			<name>Classes</name>
-			<value>Classes</value>
-		</variable>
-	</variableList>
 </projectDescription>

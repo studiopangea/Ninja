@@ -35,6 +35,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 
+    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(480, 320,
+                                                             kResolutionShowAll);
+
     // create a scene. it's an autorelease object
     CCScene *pScene = HelloWorld::scene();
 
@@ -50,7 +53,7 @@ void AppDelegate::applicationDidEnterBackground()
     CCDirector::sharedDirector()->pause();
 
     // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
@@ -59,5 +62,5 @@ void AppDelegate::applicationWillEnterForeground()
     CCDirector::sharedDirector()->resume();
     
     // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }

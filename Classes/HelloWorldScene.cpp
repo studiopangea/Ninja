@@ -187,22 +187,33 @@ void HelloWorld::gameLogic(float dt)
     this->addTarget();
 }
 
-void HelloWorld::menuCloseCallback(CCObject* pSender)
-{
-    CCDirector::sharedDirector()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+void HelloWorld::registerWithTouchDispatcher() {
+    CCLog("registerWithTouchDispatcher()");
+    
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(
+                                                                            this, 0, false);
 }
 
-void HelloWorld::ccTouchesEnded(CCSet* touches, CCEvent* event)
+bool HelloWorld::ccTouchBegan(CCTouch* touch, CCEvent* event) {
+    CCLog("ccTouchBegan(CCSet*, CCEvent*)");
+
+    return true;
+}
+
+void HelloWorld::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
+    CCLog("ccTouchMoved(CCSet*, CCEvent*)");
+}
+
+void HelloWorld::ccTouchEnded(CCTouch* touch, CCEvent* event)
+{
+    CCLog("ccTouchEnded(CCSet*, CCEvent*)");
+    
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(
 	"pew-pew-lei.wav");
 
     // Choose one of the touches to work with
-    CCTouch* touch = (CCTouch*)( touches->anyObject() );
+    //CCTouch* touch = (CCTouch*)( touch->anyObject() );
     CCPoint location = touch->getLocationInView();
     location = CCDirector::sharedDirector()->convertToGL(location);
 
@@ -325,6 +336,15 @@ void HelloWorld::update(float dt)
 
 }
 
+
+void HelloWorld::menuCloseCallback(CCObject* pSender)
+{
+    CCDirector::sharedDirector()->end();
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
+}
 
 void HelloWorld::keyBackClicked()
 {

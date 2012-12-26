@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.studiopangea.demo.ninja"
+      package="com.studiopangea.game"
       android:versionCode="1"
       android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="8"/>
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>
+
+    <supports-screens android:largeScreens="true"
+                      android:smallScreens="true"
+                      android:anyDensity="true"
+                      android:normalScreens="true"/>
 
     <application android:label="@string/app_name"
-        android:debuggable="true"
         android:icon="@drawable/icon">
 
-        <activity android:name=".Ninja"
+        <activity android:name="Ninja"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -21,8 +25,4 @@
             </intent-filter>
         </activity>
     </application>
-    <supports-screens android:largeScreens="true"
-                      android:smallScreens="true"
-                      android:anyDensity="true"
-                      android:normalScreens="true"/>
 </manifest> 

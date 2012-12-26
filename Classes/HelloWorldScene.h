@@ -30,8 +30,12 @@ public:
     void menuCloseCallback(CCObject* pSender);
 
     void addTarget();
-    void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
-
+    
+    virtual bool ccTouchBegan(CCTouch* touch, CCEvent* event);
+    virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
+    virtual void ccTouchEnded(CCTouch* touch, CCEvent* event);
+    virtual void registerWithTouchDispatcher();
+    
     void gameLogic(float dt);
     void update(float dt);
     void spriteMoveFinished(CCNode* sender);
